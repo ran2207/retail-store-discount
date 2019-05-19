@@ -1,0 +1,7 @@
+{
+  "name": "retail-store-discount",
+  "scripts": {
+    "start": "cd api && yarn && cd .. && docker-compose up"
+  },
+  "dependencies": {}
+}

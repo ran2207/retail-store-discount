@@ -1,0 +1,21 @@
+version: "3"
+
+services:
+  api:
+    command: yarn dev
+    environment:
+      NODE_ENV: development
+      PORT: 3000
+      OMDB_API_URI: https://www.omdbapi.com
+      OMDB_API_KEY: d88a4362
+      REDIS_URI: redis://redis/1
+    image: node
+    ports:
+      - 3000:3000
+    restart: always
+    volumes:
+      - ./api:/www
+    working_dir: /www
+
+  redis:
+    image: redis

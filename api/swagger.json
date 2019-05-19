@@ -1,0 +1,185 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This is a api documentation retail store discount.",
+    "version": "1.0.0",
+    "title": "Retail Store Discount",
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host": "localhost:3000",
+  "basePath": "/api",
+  "tags": [
+    {
+      "name": "discount",
+      "description": "Redeem Discounts"
+    },
+    {
+      "name": "user",
+      "description": "Create Users"
+    }
+  ],
+  "schemes": ["http"],
+  "paths": {
+    "/discount": {
+      "post": {
+        "tags": ["discount"],
+        "summary": "Apply discount to order",
+        "description": "",
+        "operationId": "getDiscount",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "discount",
+            "description": "Order objects that is required for redeeming discount",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Discount"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Valid data"
+          },
+          "500": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/register": {
+      "post": {
+        "tags": ["user"],
+        "summary": "Create a new user",
+        "description": "",
+        "operationId": "addUser",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "register",
+            "description": "User object that needs to be added to the store",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Register"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User created"
+          },
+          "500": {
+            "description": "Missing fields"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Order": {
+      "type": "object",
+      "properties": {
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "isGrocery": {
+          "type": "boolean"
+        }
+      },
+      "xml": {
+        "name": "Order"
+      }
+    },
+    "Discount": {
+      "type": "object",
+      "properties": {
+        "accessToken": {
+          "type": "object",
+          "$ref": "#/definitions/AccessToken"
+        },
+        "order": {
+          "type": "object",
+          "$ref": "#/definitions/Order"
+        }
+      },
+      "xml": {
+        "name": "Order"
+      }
+    },
+    "User": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string",
+          "default": "customer"
+        }
+      },
+      "xml": {
+        "name": "User"
+      }
+    },
+    "AccessToken": {
+      "type": "string",
+      "xml": {
+        "name": "AccessToken"
+      }
+    },
+    "Register": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "type": "object",
+          "$ref": "#/definitions/User"
+        }
+      },
+      "xml": {
+        "name": "User"
+      }
+    },
+    "Tag": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "Tag"
+      }
+    },
+
+    "ApiResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "type": {
+          "type": "string"
+        },
+        "message": {
+          "type": "object"
+        }
+      }
+    }
+  }
+}
